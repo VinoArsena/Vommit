@@ -1,13 +1,11 @@
 import Foundation
-import SwiftData
 
-@Model
-final class User {
+struct User {
     var userId: UUID
     var name: String
     
-    init() {
-        self.userId = .init()
-        self.name = ""
+    init(userId: UUID = UUID(), name: String) {
+        self.userId = userId
+        self.name = name
     }
 }

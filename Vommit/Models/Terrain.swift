@@ -1,13 +1,11 @@
 import Foundation
-import SwiftData
 
-@Model
-final class Terrain {
-    var userId: UUID
-    var name: String
+struct Terrain {
+    var terrainId: UUID
+    var terrainName: String
     
-    init() {
-        self.userId = .init()
-        self.name = ""
+    init(terrainId: UUID = UUID(), terrainName: String) {
+        self.terrainId = terrainId
+        self.terrainName = terrainName
     }
 }

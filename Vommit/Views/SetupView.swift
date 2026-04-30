@@ -19,5 +19,5 @@ struct InputView: View {
 }
 
 #Preview {
-    ContentView()
+    InputView()
 }

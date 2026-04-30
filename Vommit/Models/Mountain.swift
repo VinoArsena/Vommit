@@ -1,5 +1,4 @@
 import Foundation
-import SwiftData
 
 struct Mountain {
     let mountainId: UUID
