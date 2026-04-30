@@ -1,11 +1,25 @@
 import Foundation
 
+enum Gender {
+    case male, female, others
+}
+
 struct User {
     var userId: UUID
     var name: String
+    var dob: Date
+    var gender: Gender
+    var height: Double
+    var weight: Double
+    var vo2Max: Double
     
-    init(userId: UUID = UUID(), name: String) {
+    init(userId: UUID, name: String, dob: Date, gender: Gender, height: Double, weight: Double, vo2Max: Double) {
         self.userId = userId
         self.name = name
+        self.dob = dob
+        self.gender = gender
+        self.height = height
+        self.weight = weight
+        self.vo2Max = vo2Max
     }
 }
