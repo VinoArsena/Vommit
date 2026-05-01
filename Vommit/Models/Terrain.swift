@@ -1,13 +1,13 @@
 import Foundation
 
 struct Terrain {
-    var terrainId: UUID
-    var terrainName: String
-    var terrainImage: String
+    var id: UUID
+    var name: String
+    var image: String
     
-    init(terrainId: UUID = UUID(), terrainName: String, terrainImage: String) {
-        self.terrainId = terrainId
-        self.terrainName = terrainName
-        self.terrainImage = terrainImage
+    init(id: UUID = UUID(), name: String, image: String) {
+        self.id = id
+        self.name = name
+        self.image = image
     }
 }

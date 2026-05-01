@@ -4,12 +4,12 @@ struct TerrainCard: View {
     let terrain: Terrain
     
     var body: some View {
-        AsyncImage(url: URL(string: terrain.terrainImage))
+        AsyncImage(url: URL(string: terrain.image))
             .frame(width: 150, height: 150)
             .cornerRadius(16)
             .shadow(radius: 4)
         
-        Text(terrain.terrainName)
+        Text(terrain.name)
             .font(.system(size: 20))
             .padding(.top, 12)
     }
@@ -17,7 +17,7 @@ struct TerrainCard: View {
 
 #Preview {
     TerrainCard(terrain: Terrain(
-        terrainName: "Rocky Ascent",
-        terrainImage: "https://dummyimage.com/150"
+        name: "Rocky Ascent",
+        image: "https://dummyimage.com/150"
     ))
 }

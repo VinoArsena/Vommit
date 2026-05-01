@@ -5,7 +5,7 @@ enum Gender {
 }
 
 struct User {
-    var userId: UUID
+    var id: UUID
     var name: String
     var dob: Date
     var gender: Gender
@@ -13,8 +13,8 @@ struct User {
     var weight: Double
     var vo2Max: Double
     
-    init(userId: UUID, name: String, dob: Date, gender: Gender, height: Double, weight: Double, vo2Max: Double) {
-        self.userId = userId
+    init(id: UUID, name: String, dob: Date, gender: Gender, height: Double, weight: Double, vo2Max: Double) {
+        self.id = id
         self.name = name
         self.dob = dob
         self.gender = gender

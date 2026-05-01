@@ -4,6 +4,10 @@ import SwiftData
 struct LandingView: View {
 
     var body: some View {
+        Image(systemName: "mountain.2")
+            .font(.largeTitle)
+            .padding()
+
         Text("VOMMIT")
             .bold()
             .font(.largeTitle)
@@ -13,9 +17,6 @@ struct LandingView: View {
             .multilineTextAlignment(.center)
             .padding()
         
-        Image(systemName: "mountain.2")
-            .font(.largeTitle)
-            .padding()
         
         Text("Tap here to start")
         
