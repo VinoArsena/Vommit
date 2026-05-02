@@ -1,9 +1,21 @@
 import SwiftUI
 
 struct HomeView: View {
+//    let mountains: [Mountain] = Mountain.sampleData
     
     var body: some View {
-        Text("Text")
+        Text("Choose Mountain")
+            .font(.largeTitle.bold())
+            .multilineTextAlignment(.center)
+        
+        
+        ScrollView {
+            
+        }
+        
+        
+        
+        
     }
 }
 
@@ -12,3 +24,4 @@ struct HomeView: View {
         .preferredColorScheme(.dark)
         .background(Color("Background").ignoresSafeArea())
 }
+
