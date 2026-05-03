@@ -46,7 +46,7 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView(user: User(
-        name: "Joanne Doe",
+        name: "AnneMary",
         dob: Date(),
         gender: .others,
         height: 170,
