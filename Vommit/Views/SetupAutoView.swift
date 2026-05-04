@@ -6,20 +6,31 @@ struct SetupAutoView: View {
         
         ZStack {
             VStack {
-                Text("Sync from Apple Watch")
+                Text("Setup Profile")
+                    .font(.title.bold())
+        
+            
+                Text("Tell us about yourself")
+                    
+                    
+                    Spacer()
+
+                
+                Image(systemName: "applewatch.and.arrow.forward")
+                    .font(.largeTitle)
+                    .frame(width: 70, height: 70)
+                    .background(Color("CardBackground"))
+                    .cornerRadius(100)
+                    
+    
+                
+                Text("Sync Apple Watch")
                     .font(.title.bold())
                 
-                Spacer()
-                
-                Image(systemName: "applewatch")
-                    .font(.largeTitle)
-                    .background(Color("CardBackground"))
-                    .cornerRadius(26)
-                
-                Spacer()
-                
-                Text("Automatically sync your VO₂ max data from apple watch")
-                   
+                Image(systemName: "slowmo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40)
                 
                 Spacer()
                 
