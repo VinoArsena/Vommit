@@ -2,10 +2,23 @@ import SwiftUI
 
 struct MountainDetailView: View {
     let mountain: Mountain
+    @State private var navigate = false
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 30) {
             HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                        .glassEffect()
+                }
                 Text("Mt. " + mountain.name)
                     .font(.largeTitle)
                     .bold()
@@ -58,12 +71,16 @@ struct MountainDetailView: View {
             StatsCard(mountain: mountain)
             
             Button {
-                
+                navigate = true
             } label: {
                 Text("See Recommendation")
                     .padding(8)
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.glassProminent)
+            .navigationDestination(isPresented: $navigate) {
+                RecommendationView()
+            }
             
             VStack {
                 HStack {
@@ -85,6 +102,7 @@ struct MountainDetailView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarBackButtonHidden()
         .preferredColorScheme(.dark)
     }
 }
