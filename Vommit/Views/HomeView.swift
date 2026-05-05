@@ -8,7 +8,7 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             // Welcome Text
             VStack(alignment: .leading) {
-                Text("Hi Adri")
+                Text("Hi, User")
                     .font(.largeTitle)
                     .bold()
                 
@@ -18,7 +18,7 @@ struct HomeView: View {
             // Profile Card
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Joanne Doe")
+                    Text("User")
                         .font(.system(size: 20))
                         .bold()
                     Text("Others")
@@ -26,7 +26,7 @@ struct HomeView: View {
                     Text("170 cm")
                     Text("60 kg")
                 }
-                .padding(.leading, 25)
+                .padding(16)
                 
                 Spacer()
                 
@@ -49,18 +49,17 @@ struct HomeView: View {
                     }
                     .buttonStyle(.glassProminent)
                 }
-                .padding(.trailing, 35)
+                .padding(36)
             }
             .padding(16)
             .frame(maxWidth: .infinity)
             .background(Color.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 26))
             
             // Mountain Cards
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Pick Mountain")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.title.bold())
                 
                 ForEach(mountains, id: \.id) { mountain in
                     HStack{
@@ -80,7 +79,7 @@ struct HomeView: View {
                     .padding(16)
                     .frame(maxWidth: .infinity)
                     .background(Color.cardBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: 22))
                 }
             }
             

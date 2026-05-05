@@ -3,12 +3,12 @@ import SwiftUI
 struct SetupView: View {
     @State private var healthManager = HealthManager()
     @State private var syncing = false
-    @State private var navigateAuto = false
-    @State private var navigateManual = false
+    @State private var navigate = false
     
     @Binding var user: User?
     
     var body: some View {
+        
         ZStack {
             VStack {
                 Text("Sync Health App")
@@ -24,19 +24,22 @@ struct SetupView: View {
                             .scaleEffect(syncing ? 2.5 : 1.0)
                             .opacity(syncing ? 0.0 : 1.0)
                             .animation(
-                                .easeOut(duration: 1.5).repeatForever(autoreverses: false),
+                                .easeOut(duration: 0.5).repeatForever(autoreverses: false),
                                 value: syncing
                             )
-                            .onAppear { syncing = true }
+                            .onAppear {
+                                syncing = true
+                            }
                     }
                     Image(systemName: "applewatch.radiowaves.left.and.right")
                         .font(.largeTitle)
                         .padding(24)
                 }
+                .padding(24)
                 
                 
                 if(healthManager.syncStatus == .syncing) {
-                    Text("Syncing")
+                    Text("Syncing..")
                         .font(.title3.bold())
                 }
                 else if(healthManager.syncStatus == .success) {
@@ -49,9 +52,9 @@ struct SetupView: View {
                         .foregroundStyle(.red)
                 }
                 
-                if (healthManager.syncStatus == .failed) {
+//                if(healthManager.syncStatus == .empty || healthManager.syncStatus == .failed) {
                     Button {
-                        navigateManual = true
+                        navigate = true
                     } label: {
                         HStack(spacing: 16) {
                             Image(systemName: "gearshape.2.fill")
@@ -62,18 +65,9 @@ struct SetupView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
-                    .navigationDestination(isPresented: $navigateManual) {
-                        SetupManualView(
-                            name: "",
-                            selectedGender: Gender(from: healthManager.gender),
-                            birthday: healthManager.dob,
-                            height: healthManager.height,
-                            weight: healthManager.weight,
-                            vo2Max: healthManager.vo2Max,
-                            user: $user
-                        )
-                    }
-                }
+                    .padding()
+//                }
+                
                 
                 Spacer()
             }
@@ -82,19 +76,40 @@ struct SetupView: View {
         }
         .preferredColorScheme(.dark)
         .background(Color("Background"))
+        .navigationBarBackButtonHidden()
         .onAppear {
-            syncing = true
-            
-            Task {
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                await MainActor.run {
-                    healthManager.requestHealthKitAccess()
+            if healthManager.syncStatus != .success {
+                Task {
+                    try? await Task.sleep(nanoseconds: 2_000_000_000)
+                    await MainActor.run {
+                        healthManager.requestHealthKitAccess()
+                    }
                 }
             }
         }
+        .onChange(of: healthManager.syncStatus) { _, newValue in
+            if newValue == .success {
+                Task {
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    await MainActor.run {
+                        navigate = true
+                    }
+                }
+            }
+        }
+        .navigationDestination(isPresented: $navigate) {
+            SetupManualView(
+                name: "",
+                selectedGender: Gender(from: healthManager.gender),
+                birthday: healthManager.dob,
+                height: healthManager.height,
+                weight: healthManager.weight,
+                vo2Max: healthManager.vo2Max,
+                user: $user
+            )
+        }
         
     }
-    
 }
 
 #Preview {
