@@ -50,7 +50,6 @@ struct LandingView: View {
                     Text("Based on research from\nAmerican College of Sports Medicine")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 13, weight: .light))
-                        .italic()
                         .foregroundColor(.white)
                         .padding(.bottom, 100)
                 }
