@@ -3,6 +3,7 @@ import SwiftData
 
 @main
 struct VommitApp: App {
+    @State var currentUser: User?
 
     var body: some Scene {
         WindowGroup {

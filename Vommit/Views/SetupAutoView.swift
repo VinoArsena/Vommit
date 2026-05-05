@@ -3,7 +3,7 @@ import SwiftUI
 struct SetupAutoView: View {
     @State private var healthManager = HealthManager()
     @State private var navigate = false
-    @State var showNext = false
+    @State private var showNext = false
     
     var body: some View {
         

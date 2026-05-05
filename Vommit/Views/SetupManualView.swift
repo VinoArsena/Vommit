@@ -13,6 +13,10 @@ struct SetupManualView: View {
     @State var height: Double?
     @State var weight: Double?
     @State var vo2Max: Double?
+    @State var navigate = false
+    
+//    @Binding var user: User?
+    
     
     var body: some View {
         
@@ -70,11 +74,23 @@ struct SetupManualView: View {
                 }
                 
                 Button("Continue") {
-                    
+//                    user = User(
+//                        name: name,
+//                        dob: birthday,
+//                        gender: selectedGender,
+//                        height: height,
+//                        weight: weight,
+//                        vo2Max: vo2Max
+//                    )
+                    navigate = true
                 }
                 .font(.headline)
                 .buttonStyle(.borderless)
                 .padding()
+//                .disabled()
+                .navigationDestination(isPresented: $navigate) {
+                    HomeView()
+                }
                 
                 Spacer()
             }
@@ -117,7 +133,7 @@ struct InputRow<Content: View>: View {
         birthday: Date(),
         height: 170.0,
         weight: 60.0,
-        vo2Max: 35.0
+        vo2Max: 35.0,
     )
 }
 
