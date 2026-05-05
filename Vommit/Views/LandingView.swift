@@ -45,14 +45,14 @@ struct LandingView: View {
                             .buttonStyle(.glassProminent)
                     }
                     .padding(.horizontal, 40)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 15)
 
                     // Footer
                     Text("Based on research from\nAmerican College of Sports Medicine")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 13, weight: .light))
                         .foregroundColor(.white)
-                        .padding(.bottom, 100)
+                        .padding(.bottom, 60)
                 }
             }
         }
