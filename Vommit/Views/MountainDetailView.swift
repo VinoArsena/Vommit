@@ -1,199 +1,91 @@
 import SwiftUI
 
 struct MountainDetailView: View {
-    @Environment(\.dismiss) var dismiss
     let mountain: Mountain
-    let gradeColorTheme: Color
-    @State private var navigate = false
-
-    func fetchTerrains(for id: UUID) -> [Terrain] {
-        return DatabaseManager.terrains
-    }
-    
-    func formatNumber(_ number: Double) -> String {
-        return number.formatted(.number.precision(.fractionLength(0...2)))
-    }
-    
-    var mockMountainImages: [String] {
-        return DatabaseManager.mockMountains
-    }
     
     var body: some View {
-        ZStack {
-            Color("Background").ignoresSafeArea()
+        VStack(spacing: 30) {
+            HStack {
+                Text("Mt. " + mountain.name)
+                    .font(.largeTitle)
+                    .bold()
+                Spacer()
+                Text("Grade " + String(mountain.grade))
+            }
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    // Top Navigation
-                    HStack {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.title3.bold())
-                                .foregroundColor(.white)
-                                .frame(width: 44, height: 44)
-                                .background(Circle().fill(Color.blue))
-                        }
-                        
-                        Text("Mt. \(mountain.name)")
-                            .font(.title2.bold())
-                            .foregroundColor(.white)
-                            .padding(.leading, 8)
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 6) {
-                            Circle()
-                                .fill(gradeColorTheme)
-                                .frame(width: 8, height: 8)
-                            Text("Grade \(mountain.grade)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, 8)
-                    
-                    // Tampilan Gambar di Atas (Utama)
-                    TabView {
-                        ForEach(mockMountainImages, id: \.self) { imageUrl in
-                            AsyncImage(url: URL(string: imageUrl)) { phase in
-                                if let image = phase.image {
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                } else {
-                                    Color("CardBackground")
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 250)
-                            .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 24))
-                            .padding(.horizontal)
-                        }
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                    .frame(height: 250)
-                    .padding(.top, 16)
-                    
-                    // Stats
-                    HStack(spacing: 0) {
-                        // Duration
-                        HStack {
-                            Image(systemName: "clock")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Duration")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                Text("\(mountain.estimation.lowerBound) - \(mountain.estimation.upperBound) d")
-                                    .font(.subheadline.bold())
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        // Elevation
-                        HStack {
-                            Image(systemName: "figure.walk")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Elevation")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                Text("\(formatNumber(Double(mountain.elevation))) masl")
-                                    .font(.subheadline.bold())
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        // Distance
-                        HStack {
-                            Image(systemName: "point.topleft.filled.down.to.point.bottomright.curvepath")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Distance")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                Text("\(formatNumber(mountain.distance)) km")
-                                    .font(.subheadline.bold())
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, 16)
-                    
-                    Divider()
-                        .background(Color.white.opacity(0.3))
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
-                    
-                    // Overview
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Overview")
-                            .font(.title3.bold())
-                            .foregroundColor(.white)
-                        
-                        Text(mountain.overview)
-                            .font(.subheadline)
-                            .foregroundColor(Color.white.opacity(0.8))
-                            .lineSpacing(2)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    
-                    // Terrain Preview
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Terrain Preview")
-                            .font(.title3.bold())
-                            .foregroundColor(.white)
-                            .padding(.horizontal)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(fetchTerrains(for: mountain.id), id: \.id) { terrain in
-                                    TerrainCard(terrain: terrain)
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                    .padding(.top, 16)
-                    Spacer().frame(height: 30)
+            VStack {
+                HStack {
+                    Text("-10")
+                        .font(.system(size: 80))
+                        .bold()
+                        .foregroundStyle(.red)
+                    Text("ml/kg/min")
                 }
+                
+                Text("You are below the target")
+                    .foregroundStyle(.red)
             }
-            .safeAreaInset(edge: .bottom) {
-                VStack {
-                    Button(action: {
-                        navigate = true
-                    }) {
-                        Text("Calculate VO₂ Max")
-                            .font(.title3.bold())
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(16)
-                            .background(Color.blue)
-                            .cornerRadius(30)
-                    }
-                    .navigationDestination(isPresented: $navigate) {
-                        AnalysisView()
-                    }
+            
+            HStack {
+                VStack(spacing: 5) {
+                    Text("You")
+                        .bold()
+                    Text("20.8")
+                        .font(.title)
+                        .bold()
+                    Text("ml/kg/min")
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 16)
-                .padding(.bottom, 8)
-                .background(Color("Background"))
+                .padding(50)
+                .background(Color.cardBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+                Spacer()
+                
+                VStack(spacing: 5) {
+                    Text("Mountain")
+                        .bold()
+                    Text("30.8")
+                        .font(.title)
+                        .bold()
+                    Text("ml/kg/min")
+                }
+                .padding(50)
+                .background(Color.cardBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
             }
+            .frame(maxWidth: .infinity)
+            
+            StatsCard(mountain: mountain)
+            
+            Button {
+                
+            } label: {
+                Text("See Recommendation")
+                    .padding(8)
+            }
+            .buttonStyle(.glassProminent)
+            
+            VStack {
+                HStack {
+                    Image(systemName: "book.pages")
+                    Text("The Science Behind")
+                        .font(.caption)
+                        .bold()
+                }
+                .padding(.bottom, 4)
+                
+                Text("Using your route gradient and ascent window, we’ve calculated the minimum engine size (VO₂ Max) required to complete your summit safely.")
+                    .font(.caption2)
+                    .fontWeight(.thin)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 60)
+            }
+            
+            Spacer()
         }
-        .navigationBarHidden(true)
+        .padding(16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -208,7 +100,5 @@ struct MountainDetailView: View {
         estimation: 3..<4,
         overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters.",
         vo2max: 15
-    ), gradeColorTheme: .orange)
-        .preferredColorScheme(.dark)
+    ))
 }
-

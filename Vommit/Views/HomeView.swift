@@ -47,7 +47,7 @@ struct HomeView: View {
                     } label: {
                         Text("Update")
                     }
-                    .buttonStyle(.glass)
+                    .buttonStyle(.glassProminent)
                 }
                 .padding(.trailing, 35)
             }
@@ -72,7 +72,7 @@ struct HomeView: View {
                         }
                         .buttonStyle(.plain)
                         .navigationDestination(isPresented: $navigate) {
-//                            MountainDetailView(mountain: mountain)
+                            MountainDetailView(mountain: mountain)
                         }
                         
                         Spacer()
@@ -83,7 +83,10 @@ struct HomeView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
+            
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(16)
         .preferredColorScheme(.dark)
     }
