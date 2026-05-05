@@ -6,12 +6,7 @@ struct MountainDetailView: View {
     let gradeColorTheme: Color
 
     func fetchTerrains(for id: UUID) -> [Terrain] {
-        return [
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150")
-        ]
+        return DatabaseManager.terrains
     }
     
     func formatNumber(_ number: Double) -> String {
@@ -19,11 +14,7 @@ struct MountainDetailView: View {
     }
     
     var mockMountainImages: [String] {
-        return [
-            mountain.imageUrl,
-            "https://dummyimage.com/600x400",
-            "https://dummyimage.com/600x400"
-        ]
+        return DatabaseManager.mockMountains
     }
     
     var body: some View {
