@@ -1,19 +1,16 @@
 import SwiftUI
 
 struct SetupManualView: View {
+    @State var name: String
+    @State var selectedGender: Gender = .others
+    @State var birthday: Date
+    @State var height: Double? = nil
+    @State var weight: Double? = nil
+    @State var vo2Max: Double? = nil
+    @State var navigate = false
     
-    @State private var name: String = ""
+    @Binding var user: User?
     
-    enum gender {
-        case male, female, others
-        var id: Self { self }
-    }
-    @State private var selectedGender: gender = .others
-    
-    @State private var birthday: Date = Date()
-    @State private var height: String = ""
-    @State private var weight: String = ""
-    @State private var vo2Max: String = ""
     
     var body: some View {
         
@@ -21,8 +18,10 @@ struct SetupManualView: View {
             VStack(spacing: 24) {
                 
                 VStack(spacing: 8) {
-                    Text("Setup Profile").font(.system(size: 34, weight: .bold))
-                    Text("Tell us about yourself").foregroundColor(.secondary)
+                    Text("Setup Profile")
+                        .font(.title.bold())
+                    Text("Tell us about yourself")
+                        .foregroundColor(.secondary)
                 }
                 
                 VStack(spacing: 16) {
@@ -35,13 +34,14 @@ struct SetupManualView: View {
                         VStack(alignment: .leading) {
                             Text("Gender")
                                 .bold()
-                            Picker("TEST", selection: $selectedGender) {
-                                Text("Male").tag(gender.male)
-                                Text("Female").tag(gender.female)
-                                Text("Others").tag(gender.others)
+                            Picker("Gender", selection: $selectedGender) {
+                                Text("Male").tag(Gender.male)
+                                Text("Female").tag(Gender.female)
+                                Text("Others").tag(Gender.others)
                             }
+                            .pickerStyle(.menu)
                         }
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                         VStack(alignment: .leading) {
                             Text("Date of Birth")
@@ -50,28 +50,44 @@ struct SetupManualView: View {
                                 .labelsHidden()
                                 .datePickerStyle(.compact)
                         }
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
                     }
                     
                     InputRow(label: "Height") {
-                        TextField("175 cm", text: $height)
+                        TextField("175 cm", value: $height, formatter: NumberFormatter())
                     }
                     
                     InputRow(label: "Weight") {
-                        TextField("60 kg", text: $weight)
+                        TextField("60 kg", value: $weight, formatter: NumberFormatter())
                     }
                     
                     InputRow(label: "VO₂ Max") {
-                        TextField("30 ml/kg/min", text: $vo2Max)
+                        TextField("30 ml/kg/min", value: $vo2Max, formatter: NumberFormatter())
                     }
                 }
                 
                 Button("Continue") {
-                    
+                    if let h = height, let w = weight, let v = vo2Max {
+                        user = User(
+                            name: name,
+                            dob: birthday,
+                            gender: selectedGender,
+                            height: h,
+                            weight: w,
+                            vo2Max: v
+                        )
+                        navigate = true
+                    }
+                    navigate = true
                 }
                 .font(.headline)
                 .buttonStyle(.borderless)
                 .padding()
+                .disabled(name.isEmpty || height == 0 || weight == 0 || vo2Max == 0)
+                .navigationDestination(isPresented: $navigate) {
+                    HomeView()
+                }
                 
                 Spacer()
             }
@@ -108,6 +124,14 @@ struct InputRow<Content: View>: View {
 }
 
 #Preview {
-    SetupManualView()
+    SetupManualView(
+        name: "Joanne Doe",
+        selectedGender: Gender.male,
+        birthday: Date(),
+        height: 170.0,
+        weight: 60.0,
+        vo2Max: 35.0,
+        user: .constant(nil)
+    )
 }
 

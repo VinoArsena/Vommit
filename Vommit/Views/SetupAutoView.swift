@@ -3,6 +3,9 @@ import SwiftUI
 struct SetupAutoView: View {
     @State private var healthManager = HealthManager()
     @State private var navigate = false
+    @State private var showNext = false
+    
+    @Binding var user: User?
     
     var body: some View {
         
@@ -23,9 +26,6 @@ struct SetupAutoView: View {
                 
                 Button {
                     healthManager.requestHealthKitAccess()
-                    if healthManager.isAuthorized {
-                        navigate = true
-                    }
                 } label: {
                     HStack {
                         Spacer()
@@ -43,8 +43,29 @@ struct SetupAutoView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .fixedSize(horizontal: true, vertical: true)
+                .onChange(of: healthManager.isAuthorized) {
+                    Task {
+                        try? await Task.sleep(nanoseconds: 1_500_000_000)
+                        
+                        await MainActor.run {
+                            navigate = true
+                        }
+                    }
+                }
                 .navigationDestination(isPresented: $navigate) {
-                    SetupManualView()
+                    SetupManualView(name: "", selectedGender: Gender(from: healthManager.gender), birthday: healthManager.dob, height: healthManager.height, weight: healthManager.weight, vo2Max: healthManager.vo2Max, user: $user)
+                }
+                
+                if(healthManager.isAuthorized) {
+                    Button {
+                        showNext = true
+                    } label: {
+                        Text("Next")
+                    }
+                    .navigationDestination(isPresented: $showNext) {
+                        SetupManualView(name: "", selectedGender: Gender(from: healthManager.gender), birthday: healthManager.dob, height: healthManager.height, weight: healthManager.weight, vo2Max: healthManager.vo2Max, user: $user)
+                    }
+                    .padding()
                 }
                 
                 Spacer()
@@ -59,6 +80,6 @@ struct SetupAutoView: View {
 }
 
 #Preview {
-    SetupAutoView()
+    SetupAutoView(user: .constant(nil))
 }
 

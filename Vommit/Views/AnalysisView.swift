@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AnalysisView: View {
     @Environment(\.dismiss) var dismiss
+    @State private var navigate = false
     
     var body: some View {
         ZStack {
@@ -138,7 +139,7 @@ struct AnalysisView: View {
                         
                         // Next Action Button
                         Button {
-                            
+                            navigate = true
                         } label: {
                             HStack {
                                 Image(systemName: "arrow.right")
@@ -152,6 +153,9 @@ struct AnalysisView: View {
                             .cornerRadius(30)
                         }
                         .padding(.top, 16)
+                        .navigationDestination(isPresented: $navigate) {
+                            TrainingView()
+                        }
                         
                     }
                     .padding(.bottom, 40)

@@ -4,14 +4,10 @@ struct MountainDetailView: View {
     @Environment(\.dismiss) var dismiss
     let mountain: Mountain
     let gradeColorTheme: Color
+    @State private var navigate = false
 
     func fetchTerrains(for id: UUID) -> [Terrain] {
-        return [
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150"),
-            Terrain(id: UUID(), name: "Rocky Ascent", image: "https://dummyimage.com/150")
-        ]
+        return DatabaseManager.terrains
     }
     
     func formatNumber(_ number: Double) -> String {
@@ -19,11 +15,7 @@ struct MountainDetailView: View {
     }
     
     var mockMountainImages: [String] {
-        return [
-            mountain.imageUrl,
-            "https://dummyimage.com/600x400",
-            "https://dummyimage.com/600x400"
-        ]
+        return DatabaseManager.mockMountains
     }
     
     var body: some View {
@@ -181,7 +173,7 @@ struct MountainDetailView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack {
                     Button(action: {
-                        // Action for calculating VO2 Max
+                        navigate = true
                     }) {
                         Text("Calculate VO₂ Max")
                             .font(.title3.bold())
@@ -190,6 +182,9 @@ struct MountainDetailView: View {
                             .padding(16)
                             .background(Color.blue)
                             .cornerRadius(30)
+                    }
+                    .navigationDestination(isPresented: $navigate) {
+                        AnalysisView()
                     }
                 }
                 .padding(.horizontal, 24)

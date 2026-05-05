@@ -3,7 +3,9 @@ import SwiftUI
 struct SetupView: View {
     @State var navigateAuto = false
     @State var navigateManual = false
-
+    
+    @Binding var user: User?
+    
     var body: some View {
         
         ZStack {
@@ -39,7 +41,7 @@ struct SetupView: View {
                     }
                     .buttonStyle(.plain)
                     .navigationDestination(isPresented: $navigateAuto) {
-                        SetupAutoView()
+                        SetupAutoView(user: $user)
                     }
                     
                     Button {
@@ -63,7 +65,12 @@ struct SetupView: View {
                     }
                     .buttonStyle(.plain)
                     .navigationDestination(isPresented: $navigateManual) {
-                        SetupManualView()
+                        SetupManualView(
+                            name: "",
+                            selectedGender: .others,
+                            birthday: Date(),
+                            user: $user
+                        )
                     }
                 }
                 
@@ -75,9 +82,9 @@ struct SetupView: View {
         .background(Color("Background"))
         
     }
-
+    
 }
 
 #Preview {
-    SetupView()
+    SetupView(user: .constant(nil))
 }

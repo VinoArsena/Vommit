@@ -17,11 +17,13 @@ struct MountainCard: View {
             VStack(spacing: 12) {
                 HStack {
                     Text("Mount " + mountain.name)
-                        .font(.title3.bold())
+                        .font(.system(size: 17))
+                        .bold()
                     Spacer()
                     Label {
                         Text("Grade \(mountain.grade)")
                             .foregroundStyle(.secondary)
+                            .font(.system(size: 15))
                     } icon: {
                         Image(systemName: "circle.dashed")
                             .imageScale(.small)
@@ -33,6 +35,7 @@ struct MountainCard: View {
                 HStack {
                     Label {
                         Text("\(mountain.elevation) masl")
+                            .font(.system(size: 12))
                             .foregroundStyle(.secondary)
                     } icon: {
                         Image(systemName: "water.waves.and.arrow.trianglehead.up")
@@ -41,9 +44,10 @@ struct MountainCard: View {
                     Spacer()
                     Label {
                         Text("\(formatNumber(mountain.distance)) km")
+                            .font(.system(size: 12))
                             .foregroundStyle(.secondary)
                     } icon: {
-                        Image(systemName: "point.topleft.filled.down.to.point.bottomright.curvepath")
+                        Image(systemName: "figure.hiking")
                             .imageScale(.small)
                     }
                 }
@@ -52,6 +56,7 @@ struct MountainCard: View {
                     Label {
                         Text("\(mountain.estimation.lowerBound)-\(mountain.estimation.upperBound) d")
                             .foregroundStyle(.secondary)
+                            .font(.system(size: 12))
                     } icon: {
                         Image(systemName: "point.topleft.filled.down.to.point.bottomright.curvepath")
                             .imageScale(.small)
