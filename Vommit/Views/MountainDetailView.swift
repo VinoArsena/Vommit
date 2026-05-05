@@ -4,6 +4,7 @@ struct MountainDetailView: View {
     @Environment(\.dismiss) var dismiss
     let mountain: Mountain
     let gradeColorTheme: Color
+    @State private var navigate = false
 
     func fetchTerrains(for id: UUID) -> [Terrain] {
         return DatabaseManager.terrains
@@ -172,7 +173,7 @@ struct MountainDetailView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack {
                     Button(action: {
-                        // Action for calculating VO2 Max
+                        navigate = true
                     }) {
                         Text("Calculate VO₂ Max")
                             .font(.title3.bold())
@@ -181,6 +182,9 @@ struct MountainDetailView: View {
                             .padding(16)
                             .background(Color.blue)
                             .cornerRadius(30)
+                    }
+                    .navigationDestination(isPresented: $navigate) {
+                        AnalysisView()
                     }
                 }
                 .padding(.horizontal, 24)
