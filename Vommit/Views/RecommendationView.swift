@@ -8,10 +8,10 @@ import SwiftUI
 
 struct RecommendationView: View {
     private let exercises: [Exercise] = DatabaseManager.exerciseRecommendations
-    @State private var navigate = false
     @Environment(\.dismiss) var dismiss
-    
+
     @Binding var user: User?
+    let onGoHome: () -> Void
     
     var body: some View {
         VStack(spacing: 30) {
@@ -66,16 +66,13 @@ struct RecommendationView: View {
             .clipShape(RoundedRectangle(cornerRadius: 30))
             
             Button {
-                navigate = true
+                onGoHome()
             } label: {
                 Text("Find Another Mountain")
                     .padding(8)
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.glassProminent)
-            .navigationDestination(isPresented: $navigate) {
-                HomeView(user: $user)
-            }
             
             Text("Choose a mountain that matches your\ncurrent VO₂ Max")
                 .font(.caption)
@@ -92,5 +89,5 @@ struct RecommendationView: View {
 }
 
 #Preview {
-    RecommendationView(user: .constant(nil))
+    RecommendationView(user: .constant(nil), onGoHome: {})
 }

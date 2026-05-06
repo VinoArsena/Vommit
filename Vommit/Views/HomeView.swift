@@ -96,7 +96,9 @@ struct HomeView: View {
         .padding(16)
         .preferredColorScheme(.dark)
         .navigationDestination(item: $selectedMountain) { mountain in
-            MountainDetailView(mountain: mountain, user: $user)
+            AnalysisView(mountain: mountain, user: $user) {
+                selectedMountain = nil
+            }
         }
     }
 }

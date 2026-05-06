@@ -1,11 +1,12 @@
 import SwiftUI
 
-struct MountainDetailView: View {
+struct AnalysisView: View {
     let mountain: Mountain
     @State private var navigate = false
     @Environment(\.dismiss) var dismiss
-    
+
     @Binding var user: User?
+    let onGoHome: () -> Void
     
     var body: some View {
         VStack(spacing: 30) {
@@ -87,7 +88,7 @@ struct MountainDetailView: View {
             }
             .buttonStyle(.glassProminent)
             .navigationDestination(isPresented: $navigate) {
-                RecommendationView(user: $user)
+                RecommendationView(user: $user, onGoHome: onGoHome)
             }
             
             VStack {
@@ -116,7 +117,7 @@ struct MountainDetailView: View {
 }
 
 #Preview {
-    MountainDetailView(mountain: Mountain(
+    AnalysisView(mountain: Mountain(
         name: "Rinjani",
         imageUrl: "https://d18sx48tl6nre5.cloudfront.net/webp_xl_9a4e03f5b7b3ff53050a863be365b8ff.webp",
         grade: 4,
@@ -127,6 +128,7 @@ struct MountainDetailView: View {
         overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters.",
         vo2max: 15
     ),
-        user: .constant(nil)
+        user: .constant(nil),
+        onGoHome: {}
     )
 }

@@ -12,6 +12,7 @@ struct Mountain: Hashable {
     let estimation: Range<Int>
     let overview: String
     let vo2max: Double
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

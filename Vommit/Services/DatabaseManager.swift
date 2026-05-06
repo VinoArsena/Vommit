@@ -59,27 +59,6 @@ struct DatabaseManager {
         )
     ]
     
-    static let terrains: [Terrain] = [
-        Terrain(name: "Rumput",
-                image: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948671/Terrain_Rumput_crdza6.jpg"
-               ),
-        Terrain(name: "Curam",
-                image: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948670/Terrain_Preview_i3ohgn.jpg"
-               ),
-        Terrain(name: "Pasir",
-                image: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948669/Terrain_Pasir_ebej4e.jpg"
-               ),
-        Terrain(name: "Bebatuan",
-                image: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948669/Terrain_Bebatuan_sbbyfq.jpg"
-               ),
-    ]
-    
-    static var mockMountains: [String] = [
-        "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948677/MountainDetailView_Mt._Rinjani_Main1_yizfil.png",
-        "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948669/MountainDetailView_Main2_kwfwse.jpg",
-        "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948669/Mountain_Detail_View_Main3_ygwioo.jpg"
-    ]
-    
     static let exerciseRecommendations: [Exercise] = [
         Exercise(
             imageSystem: "figure.run",
