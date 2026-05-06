@@ -25,7 +25,7 @@ struct SetupManualView: View {
                 
                 VStack(spacing: 16) {
                     
-                    InputRow(label: "Name") {
+                    InputRow(label: "Name", desc: "") {
                         TextField("Joanne Doe", text: $name)
                     }
                     
@@ -54,17 +54,17 @@ struct SetupManualView: View {
                         
                     }
                     
-                    InputRow(label: "Height") {
+                    InputRow(label: "Height", desc: "cm") {
                         TextField("", value: $height, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
                     
-                    InputRow(label: "Weight") {
+                    InputRow(label: "Weight", desc: "kg") {
                         TextField("", value: $weight, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
                     
-                    InputRow(label: "VO₂ Max") {
+                    InputRow(label: "VO₂ Max", desc: "ml/kg/min") {
                         TextField("", value: $vo2Max, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
@@ -107,15 +107,20 @@ struct SetupManualView: View {
 struct InputRow<Content: View>: View {
     let label: String
     let content: Content
+    let desc: String
     
-    init(label: String, @ViewBuilder content: () -> Content) {
+    init(label: String, desc: String, @ViewBuilder content: () -> Content) {
         self.label = label
         self.content = content()
+        self.desc = desc
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(label).font(.headline).foregroundColor(.white)
+            HStack {
+                Text(label).font(.headline).foregroundColor(.white)
+                Text(desc).foregroundColor(.secondary)
+            }
             
             content
                 .padding(.horizontal, 12)
