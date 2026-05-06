@@ -22,26 +22,28 @@ class HealthManager {
 
     @ObservationIgnored let allTypes: Set = [
         HKQuantityType(.vo2Max),
-        HKQuantityType(.height),
-        HKQuantityType(.bodyMass),
+        HKQuantityType(.height),			
+        HKQuantityType(.bodyMass),	
         HKCharacteristicType(.dateOfBirth),
         HKCharacteristicType(.biologicalSex)
     ]
     
     func requestHealthKitAccess() {
         guard HKHealthStore.isHealthDataAvailable() else {
-            self.syncStatus = .empty
+            syncStatus = .empty
             return
         }
         
-        healthStore.requestAuthorization(toShare: nil, read: allTypes) { success, error in
+        healthStore.requestAuthorization(toShare: nil, read: allTypes) { [weak self] success, error in
+            guard let self else { return }
+            
             DispatchQueue.main.async {
                 if success {
                     self.isAuthorized = true
                     self.fetchAllData()
                     self.syncStatus = .success
                 } else {
-                    print("[HealthManager] error: \(String(describing: error?.localizedDescription))")
+//                    print("[HealthManager] error: \(String(describing: error?.localizedDescription))")
                     self.syncStatus = .failed
                 }
             }

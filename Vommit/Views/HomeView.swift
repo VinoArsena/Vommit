@@ -71,7 +71,7 @@ struct HomeView: View {
                 Text("Pick Mountain")
                     .font(.title.bold())
                 
-                ForEach(mountains, id: \.id) { mountain in
+                ForEach(mountains) { mountain in
                     HStack{
                         Button {
                             selectedMountain = mountain

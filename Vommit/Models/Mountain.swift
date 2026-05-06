@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Mountain: Hashable {
+struct Mountain: Hashable, Identifiable {
     let id: UUID
     let name: String
     let imageUrl: String
