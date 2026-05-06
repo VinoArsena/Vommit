@@ -17,7 +17,7 @@ struct SetupView: View {
                 Spacer()
                 
                 ZStack {
-                    if(healthManager.syncStatus == .syncing) {
+                    if(healthManager.isFetchComplete == false) {
                         Circle()
                             .stroke(Color.white.opacity(0.5), lineWidth: 2)
                             .frame(width: 80, height: 80)
@@ -38,11 +38,11 @@ struct SetupView: View {
                 .padding(24)
                 
                 
-                if(healthManager.syncStatus == .syncing) {
+                if(healthManager.isFetchComplete == false) {
                     Text("Syncing..")
                         .font(.title3.bold())
                 }
-                else if(healthManager.syncStatus == .success) {
+                else if(healthManager.isFetchComplete == true) {
                     Label("Synced Successfully", systemImage: "checkmark.circle.fill")
                         .font(.title3.bold())
                         .foregroundStyle(.green)
@@ -78,17 +78,17 @@ struct SetupView: View {
         .background(Color("Background"))
         .navigationBarBackButtonHidden()
         .onAppear {
-            if healthManager.syncStatus != .success {
+            if healthManager.isFetchComplete == false {
                 Task {
-                    try? await Task.sleep(nanoseconds: 2_000_000_000)
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
                     await MainActor.run {
                         healthManager.requestHealthKitAccess()
                     }
                 }
             }
         }
-        .onChange(of: healthManager.syncStatus) {
-            if healthManager.syncStatus == .success {
+        .onChange(of: healthManager.isFetchComplete) {
+            if healthManager.isFetchComplete == true {
                 Task {
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     await MainActor.run {
@@ -106,7 +106,7 @@ struct SetupView: View {
             }
         }
         .navigationDestination(isPresented: $navigate) {
-            SetupManualView(user: $user)
+            SetupManualView(selectedGender: Gender(from: healthManager.gender), birthday: healthManager.dob, height: healthManager.height, weight: healthManager.weight, vo2Max: healthManager.vo2Max, user: $user)
         }
     }
 }
