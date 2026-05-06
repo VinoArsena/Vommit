@@ -31,6 +31,7 @@ class HealthManager {
                 if success {
                     self.isAuthorized = true
                     self.fetchAllData()
+                    self.isFetchComplete = true
                 } else {
                     print("[HealthManager] error: \(String(describing: error?.localizedDescription))")
                 }
@@ -58,7 +59,9 @@ class HealthManager {
         let type = HKQuantityType.quantityType(forIdentifier: .vo2Max)!
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
         
+        group.enter()
         let query = HKSampleQuery(sampleType: type, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, results, error in
+            defer { group.leave() }
             
             if let error = error {
                 print("[HealthManager] VO2Max query error: \(error.localizedDescription)")
@@ -83,6 +86,7 @@ class HealthManager {
         
         group.enter()
         let query = HKSampleQuery(sampleType: type, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, results, error in
+            defer { group.leave() }
             
             if let error = error {
                 print("[HealthManager] Weight query error: \(error.localizedDescription)")
