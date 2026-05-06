@@ -60,7 +60,6 @@ struct SetupView: View {
                             Image(systemName: "gearshape.2.fill")
                                 .font(.title3)
                             Text("Input Data Manually")
-                                .bold()
                         }
                         .padding(8)
                     }
