@@ -117,10 +117,14 @@ struct HomeView: View {
                         withAnimation { isShowingModal = false }
                     }
                 
-                UpdateVO2MaxView()
-                    .clipShape(RoundedRectangle(cornerRadius: 26))
-                    .shadow(radius: 20)
-                    .zIndex(1)
+                UpdateVO2MaxView(user: $user) {
+                    withAnimation {
+                        isShowingModal = false
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 26))
+                .shadow(radius: 20)
+                .zIndex(1)
             }
         }
     }
