@@ -73,27 +73,30 @@ struct HomeView: View {
                     Text("Pick Mountain")
                         .font(.title.bold())
                     
-                    ForEach(mountains) { mountain in
-                        HStack {
-                            Button {
-                                selectedMountain = mountain
-                            } label: {
-                                Image(systemName: "mountain.2")
-                                Text("Mt. " + mountain.name)
+                    ScrollView {
+                        ForEach(mountains) { mountain in
+                            HStack {
+                                Button {
+                                    selectedMountain = mountain
+                                } label: {
+                                    Image(systemName: "mountain.2")
+                                    Text("Mt. " + mountain.name)
+                                    Spacer()
+                                    Image(systemName: "circle.fill")
+                                        .foregroundStyle(mountain.themeColor)
+                                    Text("Grade " + String(mountain.grade))
+                                }
+                                .buttonStyle(.plain)
+                                
                                 Spacer()
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(mountain.themeColor)
-                                Text("Grade " + String(mountain.grade))
                             }
-                            .buttonStyle(.plain)
-                            
-                            Spacer()
+                            .padding(16)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.cardBackground)
+                            .clipShape(RoundedRectangle(cornerRadius: 22))
                         }
-                        .padding(16)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.cardBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 22))
                     }
+                    
                 }
                 
                 Spacer()
