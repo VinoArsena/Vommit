@@ -7,6 +7,13 @@ struct AnalysisView: View {
 
     @Binding var user: User?
     let onGoHome: () -> Void
+    var gap: Double {
+        abs(calculateGap(mountainvo2max: mountain.vo2max, uservo2max: user?.vo2Max ?? 30))
+    }
+    
+    var isAboveTarget: Bool {
+        (user?.vo2Max ?? 30) >= mountain.vo2max
+    }
     
     var body: some View {
         VStack(spacing: 30) {
@@ -34,23 +41,23 @@ struct AnalysisView: View {
             
             VStack {
                 HStack {
-                    Text("-10")
+                    Text(isAboveTarget ? "\(String(format: "%.0f", gap))" : "\(String(format: "%.0f", gap))")
                         .font(.system(size: 80))
                         .bold()
-                        .foregroundStyle(.red)
+                        .foregroundStyle(isAboveTarget ? .green : .red)
                     Text("ml/kg/min")
                 }
                 
-                Text("You are below the target")
+                Text(isAboveTarget ? "You are above the target" : "You are below the target")
                     .font(.headline)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(isAboveTarget ? .green : .red)
             }
             
             HStack(spacing: 8) {
                 VStack(spacing: 5) {
                     Text("You")
                         .bold()
-                    Text("30")
+                    Text("\(String(format: "%.0f", user?.vo2Max ?? 30))")
                         .font(.title)
                         .bold()
                     Text("ml/kg/min")
@@ -65,7 +72,7 @@ struct AnalysisView: View {
                 VStack(spacing: 5) {
                     Text("Mountain")
                         .bold()
-                    Text("40")
+                    Text("\(String(format: "%.0f", mountain.vo2max))")
                         .font(.title)
                         .bold()
                     Text("ml/kg/min")
@@ -126,8 +133,7 @@ struct AnalysisView: View {
         elevation: 3726,
         distance: 25,
         estimation: 3..<4,
-        overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters.",
-        vo2max: 15
+        overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters."
     ),
         user: .constant(nil),
         onGoHome: {}

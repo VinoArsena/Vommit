@@ -6,56 +6,51 @@ struct DatabaseManager {
             name: "Rinjani",
             imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948670/Mt._Rinjani_hybbmc.png",
             grade: 4,
-            duration: 72,
+            duration: 30, // 3 days @ 10 hours/day
             elevation: 3726,
             distance: 28,
             estimation: 3..<4,
-            overview: "A majestic active volcano in Lombok, offering a challenging multi-day trek with a stunning crater lake, Segara Anak.",
-            vo2max: 45
+            overview: "A majestic active volcano in Lombok. Grade 4 due to the punishing vertical gain and loose scree leading to the summit."
         ),
         Mountain(
             name: "Kerinci",
             imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948670/MT._Kerinci_d6z01w.jpg",
-            grade: 1,
-            duration: 2,
-            elevation: 2329,
-            distance: 5,
-            estimation: 1..<2,
-            overview: "An iconic volcanic plateau in East Java. Accessible and famous for its ethereal sunrise and desert-like sea of sand.",
-            vo2max: 25
+            grade: 4,
+            duration: 18, // 2 days @ 9 hours/day
+            elevation: 3805,
+            distance: 15,
+            estimation: 2..<3,
+            overview: "The highest volcano in Indonesia. Grade 4 because of the dense jungle terrain and the 'Tunnel of Tigers' section which requires scrambling."
         ),
         Mountain(
             name: "Binaiya",
             imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948670/MT._Binaiya_lkpkwa.jpg",
-            grade: 2,
-            duration: 8,
-            elevation: 2565,
-            distance: 7,
-            estimation: 2..<3,
-            overview: "Located in the Dieng Plateau, known for the 'Golden Sunrise' and a relatively gentle incline suitable for beginners.",
-            vo2max: 35
+            grade: 4,
+            duration: 56, // 7 days @ 8 hours/day (high endurance/isolation)
+            elevation: 3027,
+            distance: 42,
+            estimation: 6..<8,
+            overview: "The roof of Maluku. Grade 4 due to extreme isolation and the logistical difficulty of the trek."
         ),
         Mountain(
             name: "Argopuro",
             imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948670/MT._Argopuro_qe5rbe.jpg",
             grade: 5,
-            duration: 168,
-            elevation: 4884,
-            distance: 60,
+            duration: 55, // 5 days @ 11 hours/day (ultra-long distance endurance)
+            elevation: 3088,
+            distance: 63,
             estimation: 5..<6,
-            overview: "The highest peak in Oceania. A technical limestone climb requiring rock climbing skills and high-altitude endurance.",
-            vo2max: 55
+            overview: "The longest trekking track in Java. Grade 5 due to the extreme endurance required to navigate 60km+ of wilderness."
         ),
         Mountain(
-            name: "Papandayan",
-            imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948970/Gunung_Papandayan_qu4i5x.jpg",
-            grade: 3,
-            duration: 12,
-            elevation: 2665,
-            distance: 12,
-            estimation: 2..<3,
-            overview: "A popular crater trek in West Java featuring sulfur vents, 'dead forests', and beautiful edelweiss fields.",
-            vo2max: 40
+            name: "Puncak Jaya",
+            imageUrl: "https://res.cloudinary.com/dxcn5osfu/image/upload/v1777948970/Puncak_Jaya_carstensz.jpg",
+            grade: 5,
+            duration: 84, // ~12 days @ 7 moving hours/day (slow pace due to technicality/altitude)
+            elevation: 4884,
+            distance: 50,
+            estimation: 10..<14,
+            overview: "One of the Seven Summits. Grade 5 technical limestone climb requiring mountaineering skills and high-altitude acclimatization."
         )
     ]
     

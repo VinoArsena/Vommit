@@ -11,7 +11,11 @@ struct Mountain: Hashable, Identifiable {
     let distance: Double
     let estimation: Range<Int>
     let overview: String
-    let vo2max: Double
+    var vo2max: Double {
+        let s = (distance * 1000) / (Double(duration/estimation.lowerBound) * 60)
+        let g = Double(elevation) / (distance * 1000) / 2
+        return ((0.1 * s) + (1.8 * s * g) + 3.5) * 2
+    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -28,7 +32,7 @@ struct Mountain: Hashable, Identifiable {
         }
     }
     
-    init(name: String, imageUrl: String, grade: Int, duration: Int, elevation: Int, distance: Double, estimation: Range<Int>, overview: String, vo2max: Double) {
+    init(name: String, imageUrl: String, grade: Int, duration: Int, elevation: Int, distance: Double, estimation: Range<Int>, overview: String) {
         self.id = UUID()
         self.name = name
         self.imageUrl = imageUrl
@@ -38,6 +42,5 @@ struct Mountain: Hashable, Identifiable {
         self.distance = distance
         self.estimation = estimation
         self.overview = overview
-        self.vo2max = vo2max
     }
 }

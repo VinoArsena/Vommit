@@ -76,8 +76,7 @@ struct StatsCard: View {
         elevation: 3726,
         distance: 25,
         estimation: 3..<4,
-        overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters.",
-        vo2max: 15
+        overview: "Active volcano in Lombok with challenging terrain and stunning crater views, routes range from easiest via Senaru, via Torean, to most demanding via Sembalun, with oxygen levels decreasing significantly above 2,500 meters."
     ))
     .preferredColorScheme(.dark)
 }
