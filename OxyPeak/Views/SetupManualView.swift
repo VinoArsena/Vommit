@@ -64,7 +64,7 @@ struct SetupManualView: View {
                             .keyboardType(.numberPad)
                     }
                     
-                    InputRow(label: "VO₂ Max", desc: "ml/kg/min") {
+                    InputRow(label: "VO₂ Max", desc: "ml/kg/min", isInfoNeeded: true) {
                         TextField("", value: $vo2Max, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
@@ -108,11 +108,15 @@ struct InputRow<Content: View>: View {
     let label: String
     let content: Content
     let desc: String
+    let isInfoNeeded: Bool
     
-    init(label: String, desc: String, @ViewBuilder content: () -> Content) {
+    @State private var showTooltip = false
+    
+    init(label: String, desc: String, isInfoNeeded: Bool = false, @ViewBuilder content: () -> Content) {
         self.label = label
-        self.content = content()
         self.desc = desc
+        self.isInfoNeeded = isInfoNeeded
+        self.content = content()
     }
     
     var body: some View {
@@ -120,6 +124,28 @@ struct InputRow<Content: View>: View {
             HStack {
                 Text(label).font(.headline).foregroundColor(.white)
                 Text(desc).foregroundColor(.secondary)
+                
+                Spacer()
+                
+                if isInfoNeeded {
+                    Button {
+                        showTooltip.toggle()
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.accentColor)
+                    }
+                    .popover(isPresented: $showTooltip) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("What is VO₂ Max?")
+                                .font(.headline)
+                            Text("It is a measure of the maximum amount of oxygen your body can utilize during exercise.")
+                                .font(.footnote)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(30)
+                        .presentationCompactAdaptation(.popover)
+                    }
+                }
             }
             
             content
