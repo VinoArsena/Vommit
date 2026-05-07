@@ -136,13 +136,14 @@ struct InputRow<Content: View>: View {
                     }
                     .popover(isPresented: $showTooltip) {
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("What is VO₂ Max?")
+                            Text("How to get VO₂ Max?")
                                 .font(.headline)
-                            Text("It is a measure of the maximum amount of oxygen your body can utilize during exercise.")
+                            Text("Record an outdoor walk, run, or hike lasting at least 20 minutes using your Apple Watch. Your device estimates this metric by analyzing your heart rate relative to your pace.")
                                 .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        .padding(30)
+                        .padding(36)
+                        .padding(.vertical, 8)
                         .presentationCompactAdaptation(.popover)
                     }
                 }
